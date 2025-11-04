@@ -8,102 +8,112 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 * { box-sizing: border-box; margin:0; padding:0; }
+
 body {
-  font-family: Arial, sans-serif;
-  background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
+  font-family: 'Roboto', sans-serif;
+  background: linear-gradient(-45deg, #141E30, #243B55, #2C5364, #0F2027);
   background-size: 400% 400%;
   animation: gradientShift 15s ease infinite;
   color: white;
-  margin: 0;
-  padding: 0;
   text-align: center;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 25px;
 }
 
 @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-  }
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
+/* --- Glass Frame --- */
+.glass-frame {
+  width: 100%;
+  max-width: 900px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(15px);
+  border-radius: 18px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+  padding: 20px 25px;
+  margin-bottom: 25px;
+  transition: all 0.4s ease;
+}
+.glass-frame:hover {
+  transform: scale(1.02);
+  box-shadow: 0 12px 45px rgba(0,0,0,0.8);
+}
+
+/* --- Info Section --- */
 .video-info {
-  width:100%;
-  max-width:900px;
-  margin-bottom:20px;
-  text-align:left;
-  background: linear-gradient(90deg, #1a1a2e, #0d0d1a);
-  padding:20px 25px;
-  border-radius:14px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+  text-align: left;
+  margin-bottom: 15px;
 }
 
 .video-info h2 {
-  font-size:1.7rem;
-  color:#cca300;
-  font-weight:bold;
-  text-shadow: 1px 1px 6px #000;
-  margin-bottom:10px;
-  word-break: break-word;
+  font-size: 1.7rem;
+  color: #ffd700;
+  font-weight: bold;
+  text-shadow: 1px 1px 5px #000;
+  margin-bottom: 10px;
 }
 
 .video-info span {
-  display:inline-block;
-  margin-right:12px;
-  margin-top:5px;
-  background:#1e1e3f;
-  padding:6px 14px;
-  border-radius:10px;
-  font-size:0.95rem;
-  color:#fff;
-  box-shadow: inset 0 0 5px rgba(255,255,255,0.1);
+  display: inline-block;
+  margin-right: 12px;
+  margin-top: 5px;
+  background: rgba(255,255,255,0.1);
+  padding: 6px 14px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  color: #fff;
+  box-shadow: inset 0 0 5px rgba(255,255,255,0.15);
 }
 
+/* --- Video Box --- */
 .video-container {
-  width:100%;
-  max-width:900px;
-  border-radius:16px;
-  overflow:hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.7);
-  margin-bottom:25px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 0 25px rgba(0,0,0,0.6);
 }
 
 video {
-  width:100%;
-  height:auto;
-  display:block;
-  background:black;
-  border-radius:16px;
+  width: 100%;
+  height: auto;
+  display: block;
+  background: black;
+  border-radius: 14px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
 video:hover {
-  transform: scale(1.03);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.9);
+  transform: scale(1.02);
+  box-shadow: 0 0 30px rgba(0,0,0,0.9);
 }
 
 footer {
-  text-align:center;
-  font-size:0.9rem;
-  color:#aaa;
-  margin-top:auto;
-  padding-top:15px;
-}
-
-@media (max-width:768px){
-  .video-info h2 { font-size:1.3rem; }
+  text-align: center;
+  font-size: 0.9rem;
+  color: #ccc;
+  margin-top: auto;
+  padding-top: 20px;
 }
 </style>
 </head>
 <body>
 
-<div class="video-info">
-  <h2>Streaming File Details</h2>
-  <span id="videoDuration">Duration: --</span>
-  <span id="videoResolution">Resolution: --</span>
-</div>
+<div class="glass-frame">
+  <div class="video-info">
+    <h2>🎬 Streaming File Details</h2>
+    <span id="videoDuration">Duration: --</span>
+    <span id="videoResolution">Resolution: --</span>
+  </div>
 
-<div class="video-container">
-  <video id="player" controls preload="metadata"></video>
+  <div class="video-container">
+    <video id="player" controls preload="metadata"></video>
+  </div>
 </div>
 
 <footer>© 2025 Anime VIP Stream</footer>
@@ -119,7 +129,6 @@ const durationElem = document.getElementById('videoDuration');
 const resolutionElem = document.getElementById('videoResolution');
 
 if(videoLink){
-  // HLS support
   if(Hls.isSupported() && videoLink.endsWith(".m3u8")){
     const hls = new Hls();
     hls.loadSource(videoLink);
@@ -129,23 +138,20 @@ if(videoLink){
     player.src = videoLink;
     player.addEventListener('loadedmetadata', ()=>{ player.play(); });
   } else {
-    player.src = videoLink; // fallback mp4
+    player.src = videoLink;
   }
 
-  // Load metadata for duration & resolution
   player.addEventListener('loadedmetadata', () => {
     const sec = Math.floor(player.duration);
     const min = Math.floor(sec / 60);
     const remainingSec = sec % 60;
     durationElem.textContent = `Duration: ${min}:${remainingSec.toString().padStart(2,'0')}`;
-
     if(resolutionParam){
       resolutionElem.textContent = `Resolution: ${resolutionParam}`;
     } else {
       resolutionElem.textContent = `Resolution: ${player.videoWidth}x${player.videoHeight}`;
     }
   });
-
 }else{
   document.body.innerHTML = "<h3 style='color:white;text-align:center;'>No video link found!</h3>";
 }

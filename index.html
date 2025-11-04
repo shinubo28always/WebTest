@@ -84,7 +84,7 @@ video:hover {
 }
 
 .btn {
-  flex:1 1 200px;
+  flex:1 1 250px;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -99,18 +99,14 @@ video:hover {
   text-align:center;
   color:#fff;
   box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+  background: linear-gradient(45deg, #ff6a00, #ee0979);
 }
 
-.btn#streamBtn { background: linear-gradient(45deg, #ff6a00, #ee0979); }
-.btn#streamBtn:hover { background: linear-gradient(45deg, #ee0979, #ff6a00); transform: translateY(-3px) scale(1.02); }
+.btn.copied {
+  background: linear-gradient(45deg, #10ac84, #1dd1a1);
+  color:#fff;
+}
 
-.btn#downloadBtn { background: linear-gradient(135deg, #1dd1a1, #10ac84); }
-.btn#downloadBtn:hover { background: linear-gradient(135deg, #10ac84, #1dd1a1); transform: translateY(-3px) scale(1.02); }
-
-.btn#copyBtn { background: linear-gradient(90deg, #5f27cd, #341f97); }
-.btn#copyBtn:hover { background: linear-gradient(90deg, #341f97, #5f27cd); transform: translateY(-3px) scale(1.02); }
-
-/* Quote Style Box */
 .fullscreen-note {
   background: rgba(255, 255, 255, 0.05);
   border-left: 4px solid #ffcc00;
@@ -167,9 +163,7 @@ footer {
 </div>
 
 <div class="btn-container">
-  <a id="streamBtn" class="btn" href="#" target="_blank">🔗 Stream</a>
-  <a id="downloadBtn" class="btn" href="#" download>📥 Download</a>
-  <button id="copyBtn" class="btn">📋 Copy Link</button>
+  <button id="copyBtn" class="btn">Streaming Link Copy</button>
 </div>
 
 <div class="fullscreen-note">
@@ -186,8 +180,6 @@ const videoLink = urlParams.get('VToken');
 const resolutionParam = urlParams.get('resolution'); // optional
 
 const player = document.getElementById('player');
-const downloadBtn = document.getElementById('downloadBtn');
-const streamBtn = document.getElementById('streamBtn');
 const copyBtn = document.getElementById('copyBtn');
 const durationElem = document.getElementById('videoDuration');
 const resolutionElem = document.getElementById('videoResolution');
@@ -203,15 +195,19 @@ if(videoLink){
     player.src = videoLink;
     player.addEventListener('loadedmetadata', ()=>{ player.play(); });
   } else {
-    player.src = videoLink; // fallback for mp4 or others
+    player.src = videoLink; // fallback for mp4
   }
 
-  // Buttons
-  downloadBtn.href = videoLink;
-  streamBtn.href = videoLink;
-
+  // Copy button functionality
   copyBtn.addEventListener('click', ()=>{
-    navigator.clipboard.writeText(videoLink).then(()=>{ alert('Link copied to clipboard!'); });
+    navigator.clipboard.writeText(videoLink).then(()=>{
+      copyBtn.textContent = "Copied!";
+      copyBtn.classList.add('copied');
+      setTimeout(()=>{
+        copyBtn.textContent = "Streaming Link Copy";
+        copyBtn.classList.remove('copied');
+      },2000);
+    });
   });
 
   // Load metadata for duration

@@ -1,172 +1,174 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>🎬 AniReal Card</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AniReal Cinematic Card</title>
 
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      background: linear-gradient(135deg, #141E30, #243B55);
-      font-family: 'Poppins', sans-serif;
-      overflow: hidden;
-      animation: fadeIn 1s ease-in-out;
-    }
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: radial-gradient(circle at top, #141E30, #0a0f1a);
+  font-family: 'Poppins', sans-serif;
+  color: #fff;
+  overflow: hidden;
+}
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.98); }
-      to { opacity: 1; transform: scale(1); }
-    }
+/* === Card Container === */
+.card {
+  position: relative;
+  width: 380px;
+  height: 550px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.1);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
 
-    .card {
-      width: 360px;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-      color: #fff;
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-      transform: translateY(0);
-      position: relative;
-    }
+.card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 35px rgba(255, 255, 255, 0.15);
+}
 
-    .card:hover {
-      transform: translateY(-15px);
-      box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
-    }
+/* === Image Section === */
+.image-box {
+  position: relative;
+  width: 100%;
+  height: 70%;
+  overflow: hidden;
+}
 
-    .image-container {
-      position: relative;
-      overflow: hidden;
-    }
+.image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
 
-    .image-container img {
-      width: 100%;
-      height: auto;
-      display: block;
-      transition: transform 0.6s ease;
-    }
+.card:hover .image-box img {
+  transform: scale(1.1);
+}
 
-    .card:hover .image-container img {
-      transform: scale(1.1);
-    }
+/* === Dark Gradient Shadow on Image Bottom === */
+.image-box::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+}
 
-    .rating-tag {
-      position: absolute;
-      top: 15px;
-      left: 15px;
-      background: linear-gradient(45deg, #f093fb, #f5576c);
-      color: #fff;
-      padding: 5px 12px;
-      border-radius: 20px;
-      font-size: 14px;
-      font-weight: 600;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-    }
+/* === Button Group on Hover === */
+.button-group {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 5;
+}
 
-    .content {
-      padding: 20px;
-      text-align: center;
-    }
+.card:hover .button-group {
+  opacity: 1;
+}
 
-    h1 {
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 10px;
-      color: #ffdf6c;
-      text-shadow: 0 2px 8px rgba(255,255,255,0.2);
-    }
+.button-group button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  background: linear-gradient(45deg, #ff4757, #ff6b81);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
 
-    p {
-      font-size: 15px;
-      color: #ddd;
-      margin-bottom: 20px;
-    }
+.button-group button:hover {
+  transform: scale(1.08);
+  background: linear-gradient(45deg, #ff6b81, #ff4757);
+}
 
-    .buttons {
-      display: flex;
-      gap: 10px;
-    }
+/* === Details Section === */
+.details {
+  position: relative;
+  padding: 20px;
+  text-align: center;
+}
 
-    .btn, button {
-      flex: 1;
-      padding: 12px;
-      border: none;
-      border-radius: 25px;
-      font-size: 16px;
-      cursor: pointer;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      transition: all 0.3s ease;
-      color: #fff;
-    }
+.details h1 {
+  font-size: 22px;
+  color: #ffdf6c;
+  margin-bottom: 8px;
+}
 
-    #addToListBtn {
-      background: linear-gradient(45deg, #007bff, #00c6ff);
-    }
+.details p {
+  font-size: 15px;
+  color: #ccc;
+  line-height: 1.5;
+}
 
-    .btn {
-      background: linear-gradient(45deg, #00b09b, #96c93d);
-    }
-
-    #addToListBtn:hover, .btn:hover {
-      transform: scale(1.08);
-      filter: brightness(1.15);
-    }
-
-    #addToListBtn:active, .btn:active {
-      transform: scale(0.95);
-    }
-
-    footer {
-      position: absolute;
-      bottom: 15px;
-      font-size: 12px;
-      color: #ccc;
-      letter-spacing: 0.5px;
-    }
-  </style>
+/* === Rating Tag === */
+.rating {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: rgba(0,0,0,0.7);
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffdf6c;
+}
+</style>
 </head>
 <body>
 
   <div class="card">
-    <div class="image-container">
+    <div class="image-box">
       <img src="https://i.imgur.com/8Km9tLL.jpg" alt="Anime Image">
-      <div class="rating-tag">⭐ 9.2</div>
+      <div class="rating">⭐ 9.1</div>
+
+      <div class="button-group">
+        <button id="watchNow">▶ Watch Now</button>
+        <button id="addList">+ Add</button>
+      </div>
     </div>
 
-    <div class="content">
+    <div class="details">
       <h1>Attack on Titan</h1>
-      <p>Humanity fights for survival against the mysterious Titans.</p>
-
-      <div class="buttons">
-        <button id="addToListBtn">Add to List</button>
-        <a href="#" class="btn">Watch Now</a>
-      </div>
+      <p>Humanity’s last stand against monstrous Titans — a fight for freedom, courage, and survival.</p>
     </div>
   </div>
 
-  <footer>🎬 Powered by AniReal</footer>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const addBtn = document.getElementById("addList");
+  addBtn.addEventListener("click", function() {
+    addBtn.innerText = "✔ Added";
+    addBtn.style.background = "linear-gradient(45deg, #6c757d, #868f96)";
+    addBtn.disabled = true;
+  });
+});
+</script>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      const addToListBtn = document.getElementById('addToListBtn');
-      addToListBtn.addEventListener('click', function() {
-        alert('Item added to your list!');
-        addToListBtn.innerText = '✔ Added!';
-        addToListBtn.style.background = 'linear-gradient(45deg, #6c757d, #868f96)';
-        addToListBtn.disabled = true;
-      });
-    });
-  </script>
 </body>
 </html>

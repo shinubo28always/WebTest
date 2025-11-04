@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🎬 Anime Stream VIP</title>
+<title>🎬 Video Stream Site</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
@@ -80,7 +80,8 @@ body {
   box-shadow: 0 12px 30px rgba(0,0,0,0.9);
 }
 
-  .quote-msg {
+/* Quote message */
+.quote-msg {
   max-width:900px;
   margin:10px auto 20px;
   padding:15px 20px;
@@ -88,9 +89,12 @@ body {
   background: rgba(30,30,50,0.6);
   border-radius:8px;
   font-style:italic;
+  font-weight:bold; /* Bold text */
+  font-family: 'Roboto', sans-serif;
   color:#fff;
 }
-  
+
+/* Footer */
 footer {
   text-align:center;
   font-size:0.9rem;
@@ -98,7 +102,7 @@ footer {
   margin-top:20px;
   border-top:1px solid rgba(255,255,255,0.1);
   box-shadow: 0 2px 8px rgba(255,255,255,0.05);
-  }
+}
 
 @media (max-width:768px){
   .video-box h3 { font-size:1.3rem; }
@@ -119,9 +123,7 @@ footer {
   If full screen doesn’t work here, open this page in Chrome for full screen support.
 </div>
 
-<footer>© 2025 Anime VIP Stream</footer>
-  
-<footer>© 2025 Anime VIP Stream</footer>
+<footer>© 2025 Video Stream • All Rights Reserved</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <script>
@@ -170,7 +172,7 @@ if(rawData){
   }
 
 } else{
-  document.body.innerHTML = "<h3 style='color:white;text-align:center;'>No video link found!</h3>";
+  document.body.innerHTML = "<h3 style='color:white;text-align:center;'>🚫No video found!🥲</h3>";
 }
 </script>
 

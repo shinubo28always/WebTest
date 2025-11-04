@@ -10,14 +10,22 @@
 * { box-sizing: border-box; margin:0; padding:0; }
 body {
   font-family:'Roboto', sans-serif;
-  background: #0b0b1c;
+  background: linear-gradient(270deg, #0b0b1c, #1a1a2e, #0d0d1a, #2e2e4f);
+  background-size: 800% 800%;
   color: #fff;
   display:flex;
   flex-direction:column;
   align-items:center;
   min-height:100vh;
   padding:20px;
+  animation: gradientAnimation 15s ease infinite;
 }
+
+@keyframes gradientAnimation {
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+  }
 
 .video-info {
   width:100%;
@@ -74,53 +82,6 @@ video:hover {
   box-shadow: 0 12px 30px rgba(0,0,0,0.9);
 }
 
-.btn-container {
-  display:flex;
-  flex-wrap:wrap;
-  gap:15px;
-  max-width:900px;
-  justify-content:center;
-  margin-bottom:40px;
-}
-
-.btn {
-  flex:1 1 200px; /* Same as old 3-button width */
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:14px 0;
-  font-size:1.05rem;
-  font-weight:700;
-  border:none;
-  border-radius:12px;
-  cursor:pointer;
-  transition:0.4s;
-  text-decoration:none;
-  text-align:center;
-  color:#fff;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.5);
-  background: linear-gradient(45deg, #ff6a00, #ee0979);
-  position: relative;
-  overflow: hidden;
-}
-
-.btn:hover {
-  transform: scale(1.03);
-  box-shadow: 0 10px 25px rgba(255, 102, 0, 0.6);
-}
-
-.btn.copied {
-  background: linear-gradient(45deg, #10ac84, #1dd1a1);
-  color:#fff;
-  animation: glow 0.6s ease forwards;
-}
-
-@keyframes glow {
-  0% { box-shadow: 0 0 0px rgba(16,172,132,0); }
-  50% { box-shadow: 0 0 15px rgba(16,172,132,0.7); }
-  100% { box-shadow: 0 0 0px rgba(16,172,132,0); }
-}
-
 footer {
   text-align:center;
   font-size:0.9rem;
@@ -131,7 +92,6 @@ footer {
 
 @media (max-width:768px){
   .video-info h2 { font-size:1.3rem; }
-  .btn { font-size:0.95rem; padding:12px 0; }
 }
 </style>
 </head>
@@ -147,10 +107,6 @@ footer {
   <video id="player" controls preload="metadata"></video>
 </div>
 
-<div class="btn-container">
-  <button id="copyBtn" class="btn">Streaming Link Copy</button>
-</div>
-
 <footer>© 2025 Anime VIP Stream</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
@@ -160,7 +116,6 @@ const videoLink = urlParams.get('VToken');
 const resolutionParam = urlParams.get('resolution');
 
 const player = document.getElementById('player');
-const copyBtn = document.getElementById('copyBtn');
 const durationElem = document.getElementById('videoDuration');
 const resolutionElem = document.getElementById('videoResolution');
 
@@ -177,18 +132,6 @@ if(videoLink){
   } else {
     player.src = videoLink; // fallback mp4
   }
-
-  // Copy button click + animation
-  copyBtn.addEventListener('click', ()=>{
-    navigator.clipboard.writeText(videoLink).then(()=>{
-      copyBtn.textContent = "Copied!";
-      copyBtn.classList.add('copied');
-      setTimeout(()=>{
-        copyBtn.textContent = "Streaming Link Copy";
-        copyBtn.classList.remove('copied');
-      },2000);
-    });
-  });
 
   // Load metadata for duration & resolution
   player.addEventListener('loadedmetadata', () => {

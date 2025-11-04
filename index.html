@@ -30,7 +30,7 @@ body {
 .video-box {
   width:100%;
   max-width:900px;
-  margin: 1px;
+  margin: 1px auto;
   background: rgba(20, 20, 40, 0.4);
   backdrop-filter: blur(10px);
   border-radius:16px;
@@ -41,7 +41,7 @@ body {
 }
 
 /* Header inside the box */
-.video-box h2 {
+.video-box h3 {
   font-size:1.6rem;
   color:#cca300;
   font-weight:bold;
@@ -85,7 +85,7 @@ footer {
 }
 
 @media (max-width:768px){
-  .video-box h2 { font-size:1.3rem; }
+  .video-box h3 { font-size:1.3rem; }
 }
 </style>
 </head>
@@ -103,39 +103,50 @@ footer {
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <script>
 const urlParams = new URLSearchParams(window.location.search);
-const videoLink = urlParams.get('VToken');
-const resolutionParam = urlParams.get('resolution');
+const rawData = urlParams.get('VToken');
 
 const player = document.getElementById('player');
 const durationElem = document.getElementById('videoDuration');
 const resolutionElem = document.getElementById('videoResolution');
+const titleElem = document.querySelector('.video-box h3');
 
-if(videoLink){
-  if(Hls.isSupported() && videoLink.endsWith(".m3u8")){
-    const hls = new Hls();
-    hls.loadSource(videoLink);
-    hls.attachMedia(player);
-    hls.on(Hls.Events.MANIFEST_PARSED, function() { player.play(); });
-  } else if(player.canPlayType('application/vnd.apple.mpegurl') && videoLink.endsWith(".m3u8")){
-    player.src = videoLink;
-    player.addEventListener('loadedmetadata', ()=>{ player.play(); });
+if(rawData){
+  // Split using '~' separator
+  const parts = rawData.split('~');
+  const videoLink = parts[0] || null;
+  const videoTitle = parts[1] ? parts[1].replace(/\+/g,' ') : "N/A";
+  const resolution = parts[2] || "N/A";
+
+  // Set title & resolution
+  titleElem.textContent = videoTitle;
+  resolutionElem.textContent = "Resolution: " + resolution;
+
+  if(videoLink){
+    // Load video
+    if(Hls.isSupported() && videoLink.endsWith(".m3u8")){
+      const hls = new Hls();
+      hls.loadSource(videoLink);
+      hls.attachMedia(player);
+      hls.on(Hls.Events.MANIFEST_PARSED, () => { player.play(); });
+    } else {
+      player.src = videoLink;
+    }
+
+    // Update duration once metadata loaded
+    player.addEventListener('loadedmetadata', () => {
+      const sec = Math.floor(player.duration);
+      const min = Math.floor(sec / 60);
+      const remainingSec = sec % 60;
+      durationElem.textContent = `Duration: ${min}:${remainingSec.toString().padStart(2,'0')}`;
+    });
+
   } else {
-    player.src = videoLink; // fallback mp4
+    titleElem.textContent = "N/A";
+    resolutionElem.textContent = "Resolution: N/A";
+    durationElem.textContent = "Duration: N/A";
   }
 
-  player.addEventListener('loadedmetadata', () => {
-    const sec = Math.floor(player.duration);
-    const min = Math.floor(sec / 60);
-    const remainingSec = sec % 60;
-    durationElem.textContent = `Duration: ${min}:${remainingSec.toString().padStart(2,'0')}`;
-    if(resolutionParam){
-      resolutionElem.textContent = `Resolution: ${resolutionParam}`;
-    } else {
-      resolutionElem.textContent = `Resolution: ${player.videoWidth}x${player.videoHeight}`;
-    }
-  });
-
-}else{
+} else{
   document.body.innerHTML = "<h3 style='color:white;text-align:center;'>No video link found!</h3>";
 }
 </script>

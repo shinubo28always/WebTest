@@ -84,7 +84,6 @@ video:hover {
 }
 
 .btn {
-.btn {
   flex: 1 1 250px; /* Same size as old 3 buttons */
   display: flex;
   align-items: center;
@@ -216,13 +215,13 @@ if(videoLink){
 
   // Copy button with animation
   copyBtn.addEventListener('click', ()=>{
-    navigator.clipboard.writeText(videoLink).then(()=>{
-      copyBtn.textContent = "Copied!";
-      copyBtn.classList.add('copied');
-      setTimeout(()=>{
-        copyBtn.textContent = "Streaming Link Copy";
-        copyBtn.classList.remove('copied');
-      },2000);
+  navigator.clipboard.writeText(videoLink).then(()=>{
+    copyBtn.textContent = "Copied!";
+    copyBtn.classList.add('copied');
+    setTimeout(()=>{
+      copyBtn.textContent = "Streaming Link Copy";
+      copyBtn.classList.remove('copied');
+    },2000);
     });
   });
 

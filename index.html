@@ -84,7 +84,7 @@ video:hover {
 }
 
 .btn {
-  flex:1 1 250px;
+  flex:1 1 250px; /* Same as old 3 buttons size */
   display:flex;
   align-items:center;
   justify-content:center;
@@ -100,11 +100,25 @@ video:hover {
   color:#fff;
   box-shadow: 0 6px 18px rgba(0,0,0,0.5);
   background: linear-gradient(45deg, #ff6a00, #ee0979);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn:hover {
+  transform: scale(1.03);
+  box-shadow: 0 10px 25px rgba(255, 102, 0, 0.6);
 }
 
 .btn.copied {
   background: linear-gradient(45deg, #10ac84, #1dd1a1);
   color:#fff;
+  animation: glow 0.6s ease forwards;
+}
+
+@keyframes glow {
+  0% { box-shadow: 0 0 0px rgba(16,172,132,0); }
+  50% { box-shadow: 0 0 15px rgba(16,172,132,0.7); }
+  100% { box-shadow: 0 0 0px rgba(16,172,132,0); }
 }
 
 .fullscreen-note {
@@ -177,7 +191,7 @@ footer {
 <script>
 const urlParams = new URLSearchParams(window.location.search);
 const videoLink = urlParams.get('VToken');
-const resolutionParam = urlParams.get('resolution'); // optional
+const resolutionParam = urlParams.get('resolution');
 
 const player = document.getElementById('player');
 const copyBtn = document.getElementById('copyBtn');
@@ -198,7 +212,7 @@ if(videoLink){
     player.src = videoLink; // fallback for mp4
   }
 
-  // Copy button functionality
+  // Copy button with animation
   copyBtn.addEventListener('click', ()=>{
     navigator.clipboard.writeText(videoLink).then(()=>{
       copyBtn.textContent = "Copied!";
@@ -210,14 +224,13 @@ if(videoLink){
     });
   });
 
-  // Load metadata for duration
+  // Metadata for duration/resolution
   player.addEventListener('loadedmetadata', () => {
     const sec = Math.floor(player.duration);
     const min = Math.floor(sec / 60);
     const remainingSec = sec % 60;
     durationElem.textContent = `Duration: ${min}:${remainingSec.toString().padStart(2,'0')}`;
 
-    // Resolution: from URL param if provided
     if(resolutionParam){
       resolutionElem.textContent = `Resolution: ${resolutionParam}`;
     } else {

@@ -10,13 +10,15 @@
 * { box-sizing: border-box; margin:0; padding:0; }
 body {
   font-family: Arial, sans-serif;
-      background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
-      color: white;
-      margin: 0;
-      padding: 0;
-      text-align: center;
-      min-height: 100vh;
-                                  }
+  background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  color: white;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  min-height: 100vh;
+}
 
 @keyframes gradientShift {
       0% { background-position: 0% 50%; }

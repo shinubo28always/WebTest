@@ -1,0 +1,106 @@
+<html>
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f2f5;
+    font-family: Arial, sans-serif;
+}
+
+.card {
+    width: 350px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+.image-container {
+    position: relative;
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+}
+
+.rating-tag {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 14px;
+}
+
+.content {
+    padding: 20px;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn, button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#addToListBtn {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.btn {
+    background-color: #28a745;
+    color: #fff;
+}
+
+#addToListBtn:hover, .btn:hover {
+    transform: scale(1.05);
+}
+
+#addToListBtn:active, .btn:active {
+    transform: scale(0.95);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const addToListBtn = document.getElementById('addToListBtn');
+
+    addToListBtn.addEventListener('click', function() {
+        // You can replace this with more complex functionality,
+        // like adding the item to a shopping cart or a visible list.
+        alert('Item added to your list!');
+        addToListBtn.innerText = 'Added!';
+        addToListBtn.style.backgroundColor = '#6c757d';
+        addToListBtn.disabled = true;
+    });
+});
+</html>

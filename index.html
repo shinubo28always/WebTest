@@ -26,33 +26,34 @@ body {
   100% { background-position: 0% 50%; }
 }
 
-/* 🔹 Info Box (Glass Effect + Compact) */
-.video-info {
+/* 🔹 Combined Glass Frame */
+.video-box {
   width:100%;
   max-width:900px;
-  margin-bottom:20px;
-  text-align:left;
+  margin: 30px auto;
   background: rgba(20, 20, 40, 0.4);
   backdrop-filter: blur(10px);
-  padding:16px 20px;
-  border-radius:14px;
-  border: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+  border-radius:16px;
+  border: 1px solid rgba(255,255,255,0.15);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  padding:20px;
+  text-align:left;
 }
 
-.video-info h2 {
-  font-size:1.5rem;
+/* Header inside the box */
+.video-box h2 {
+  font-size:1.6rem;
   color:#cca300;
   font-weight:bold;
   text-shadow: 1px 1px 6px #000;
-  margin-bottom:8px;
-  word-break: break-word;
+  margin-bottom:10px;
 }
 
-.video-info span {
+/* Info tags */
+.video-box span {
   display:inline-block;
   margin-right:12px;
-  margin-top:5px;
+  margin-bottom:15px;
   background: rgba(30, 30, 60, 0.6);
   padding:6px 14px;
   border-radius:10px;
@@ -61,20 +62,8 @@ body {
   box-shadow: inset 0 0 5px rgba(255,255,255,0.1);
 }
 
-/* 🔹 Video Container (inside glass box) */
-.video-container {
-  width:100%;
-  max-width:900px;
-  border-radius:16px;
-  overflow:hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.7);
-  background: rgba(20, 20, 40, 0.4);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.1);
-  padding:10px;
-}
-
-video {
+/* Video inside the same box */
+.video-box video {
   width:100%;
   height:auto;
   display:block;
@@ -83,7 +72,7 @@ video {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-video:hover {
+.video-box video:hover {
   transform: scale(1.03);
   box-shadow: 0 12px 30px rgba(0,0,0,0.9);
 }
@@ -92,24 +81,20 @@ footer {
   text-align:center;
   font-size:0.9rem;
   color:#aaa;
-  margin-top:auto;
-  padding-top:15px;
+  margin-top:20px;
 }
 
 @media (max-width:768px){
-  .video-info h2 { font-size:1.3rem; }
+  .video-box h2 { font-size:1.3rem; }
 }
 </style>
 </head>
 <body>
 
-<div class="video-info">
+<div class="video-box">
   <h2>Streaming File Details</h2>
   <span id="videoDuration">Duration: --</span>
   <span id="videoResolution">Resolution: --</span>
-</div>
-
-<div class="video-container">
   <video id="player" controls preload="metadata"></video>
 </div>
 

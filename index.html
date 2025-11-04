@@ -9,22 +9,19 @@
 
 * { box-sizing: border-box; margin:0; padding:0; }
 body {
-  font-family:'Roboto', sans-serif;
-  background: linear-gradient(270deg, #0b0b1c, #1a1a2e, #0d0d1a, #2e2e4f);
-  background-size: 800% 800%;
-  color: #fff;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  min-height:100vh;
-  padding:20px;
-  animation: gradientAnimation 15s ease infinite;
-}
+  font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
+      color: white;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      min-height: 100vh;
+                                  }
 
-@keyframes gradientAnimation {
-  0%{background-position:0% 50%;}
-  50%{background-position:100% 50%;}
-  100%{background-position:0% 50%;}
+@keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
   }
 
 .video-info {

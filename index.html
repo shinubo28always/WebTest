@@ -69,11 +69,13 @@ body {
   display:block;
   background:black;
   border-radius:12px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: none; /* remove hover animation */
+  box-shadow: 0 12px 30px rgba(0,0,0,0.9); /* permanent shadow */
 }
 
+/* Remove hover effect completely */
 .video-box video:hover {
-  transform: scale(1.03);
+  transform: none;
   box-shadow: 0 12px 30px rgba(0,0,0,0.9);
 }
 

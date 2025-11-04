@@ -82,36 +82,47 @@ video:hover {
   max-width:900px;
   justify-content:center;
   margin-bottom:40px;
- }
+   }
 
 .btn {
   flex:1 1 200px;
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:14px 0;
-  font-size:1.05rem;
-  font-weight:700;
-  border:none;
-  border-radius:12px;
-  cursor:pointer;
-  transition:0.4s;
-  text-decoration:none;
-  text-align:center;
-  color:#fff;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+  padding: 16px 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  text-decoration: none;
+  text-align: center;
+  color: #e0e0e0;
+  background: #0b0b1c;
+  box-shadow: 6px 6px 12px #080814, 
+              -6px -6px 12px #0e0e24;
+  }
+  
+  .btn:active {
+   box-shadow: inset 4px 4px 8px #080814, 
+               inset -4px -4px 8px #0e0e24;
+   transform: translateY(1px);
    }
-
+  
 .btn:hover {
-  transform: scale(1.03);
-  box-shadow: 0 10px 25px rgba(255, 102, 0, 0.6);
-}
+  color: #fff;
+  background: linear-gradient(145deg, #1a1a2e, #0d0d1a);
+  box-shadow: 4px 4px 8px #080814, 
+              -4px -4px 8px #0e0e24;
+  transform: translateY(-2px);
+  }
 
 .btn.copied {
   background: linear-gradient(45deg, #10ac84, #1dd1a1);
   color:#fff;
   animation: glow 0.6s ease forwards;
-}
+  }
 
 @keyframes glow {
   0% { box-shadow: 0 0 0px rgba(16,172,132,0); }

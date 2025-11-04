@@ -80,7 +80,7 @@ video:hover {
   gap:15px;
   max-width:900px;
   justify-content:center;
-  margin-bottom:40px;
+  margin-bottom:25px;
 }
 
 .btn {
@@ -109,6 +109,27 @@ video:hover {
 
 .btn#copyBtn { background: linear-gradient(90deg, #5f27cd, #341f97); }
 .btn#copyBtn:hover { background: linear-gradient(90deg, #341f97, #5f27cd); transform: translateY(-3px) scale(1.02); }
+
+.fullscreen-note {
+  text-align:center;
+  font-size:1rem;
+  max-width:850px;
+  margin-top:15px;
+  color:#ddd;
+  line-height:1.5;
+}
+
+.fullscreen-note span {
+  color:#ffcc00;
+  font-weight:bold;
+  cursor:pointer;
+  text-decoration:underline;
+  transition:0.3s;
+}
+
+.fullscreen-note span:hover {
+  color:#ffee80;
+}
 
 footer {
   text-align:center;
@@ -142,6 +163,10 @@ footer {
   <button id="copyBtn" class="btn">📋 Copy Link</button>
 </div>
 
+<div class="fullscreen-note">
+  If you are using a browser where fullscreen feature is not supported, then <span id="manualFullscreen">click here</span> to enable fullscreen manually.
+</div>
+
 <footer>© 2025 Anime VIP Stream</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
@@ -156,6 +181,7 @@ const streamBtn = document.getElementById('streamBtn');
 const copyBtn = document.getElementById('copyBtn');
 const durationElem = document.getElementById('videoDuration');
 const resolutionElem = document.getElementById('videoResolution');
+const manualFullscreenBtn = document.getElementById('manualFullscreen');
 
 if(videoLink){
   // HLS streaming support
@@ -177,6 +203,19 @@ if(videoLink){
 
   copyBtn.addEventListener('click', ()=>{
     navigator.clipboard.writeText(videoLink).then(()=>{ alert('Link copied to clipboard!'); });
+  });
+
+  // Manual fullscreen feature
+  manualFullscreenBtn.addEventListener('click', () => {
+    if(player.requestFullscreen){
+      player.requestFullscreen();
+    } else if(player.webkitRequestFullscreen){
+      player.webkitRequestFullscreen();
+    } else if(player.msRequestFullscreen){
+      player.msRequestFullscreen();
+    } else {
+      alert("Fullscreen not supported in this browser.");
+    }
   });
 
   // Load metadata for duration
